@@ -16,13 +16,15 @@ export const ProfileProvider = ({ children }) => {
           setProfile({
             uid: authObj.uid,
             email: authObj.email,
-            name: snap.val.name,
-            createdAt: snap.val.createdAt,
+            name: snap.val().name,
+            createdAt: snap.val().createdAt,
           })
         );
         setIsLoading(false);
       } else {
-        userRef.off();
+        if (userRef) {
+          userRef.off();
+        }
         setProfile(null);
         setIsLoading(false);
       }
