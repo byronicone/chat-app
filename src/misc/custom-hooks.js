@@ -6,7 +6,7 @@ export const useModalState = (defaultValue = false) => {
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
-  return [isOpen, open, close];
+  return { isOpen, open, close };
 };
 
 export const useMediaQuery = query => {
