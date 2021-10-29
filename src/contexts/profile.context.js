@@ -18,6 +18,7 @@ export const ProfileProvider = ({ children }) => {
             email: authObj.email,
             name: snap.val().name,
             createdAt: snap.val().createdAt,
+            avatar: snap.val().avatar,
           })
         );
         setIsLoading(false);
