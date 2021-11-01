@@ -13,7 +13,7 @@ const PublicRoute = ({ children, ...props }) => {
     );
   }
   if (!isLoading && profile) {
-    return <Redirect to="/home" />;
+    return <Redirect to="/" />;
   }
   return <Route {...props}>{children}</Route>;
 };
