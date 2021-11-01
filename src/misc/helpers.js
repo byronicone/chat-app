@@ -6,3 +6,11 @@ export const getInitialsFromName = name => {
 
   return parts[0][0];
 };
+
+export const transformToArrWithId = snapVal => {
+  return snapVal
+    ? Object.keys(snapVal).map(roomId => {
+        return { ...snapVal[roomId], id: roomId };
+      })
+    : [];
+};
