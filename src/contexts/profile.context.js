@@ -12,16 +12,16 @@ export const ProfileProvider = ({ children }) => {
     const authUnsub = auth.onAuthStateChanged(authObj => {
       if (authObj) {
         userRef = database.ref(`/profiles/${authObj.uid}`);
-        userRef.on('value', snap =>
+        userRef.on('value', snap => {
           setProfile({
             uid: authObj.uid,
             email: authObj.email,
             name: snap.val().name,
             createdAt: snap.val().createdAt,
             avatar: snap.val().avatar,
-          })
-        );
-        setIsLoading(false);
+          });
+          setIsLoading(false);
+        });
       } else {
         if (userRef) {
           userRef.off();
