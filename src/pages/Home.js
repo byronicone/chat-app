@@ -5,8 +5,8 @@ import Sidebar from '../components/Sidebar';
 const Home = () => {
   return (
     <Grid fluid className="h-100">
-      <Row>
-        <Col sm={24} md={8}>
+      <Row className="h-100">
+        <Col sm={24} md={8} className="h-100">
           <Sidebar />
         </Col>
       </Row>
