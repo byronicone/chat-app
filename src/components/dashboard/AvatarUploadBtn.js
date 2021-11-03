@@ -82,7 +82,7 @@ const AvatarUploadBtn = () => {
       <div>
         <ProfileAvatar
           src={profile.avatar}
-          user={profile}
+          name={profile.name}
           className="width-200 height-200 img-fullsize font-huge"
         />
         <label

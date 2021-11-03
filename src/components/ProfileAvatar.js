@@ -2,10 +2,10 @@ import React from 'react';
 import { Avatar } from 'rsuite';
 import { getInitialsFromName } from '../misc/helpers';
 
-const ProfileAvatar = ({ user, ...props }) => {
+const ProfileAvatar = ({ name, ...props }) => {
   return (
     <Avatar circle {...props}>
-      {getInitialsFromName(user.name)}
+      {getInitialsFromName(name)}
     </Avatar>
   );
 };
