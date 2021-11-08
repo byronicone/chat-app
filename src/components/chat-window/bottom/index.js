@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import { Alert, Icon, Input, InputGroup } from 'rsuite';
 import { useProfile } from '../../../contexts/profile.context';
 import { database } from '../../../misc/firebase';
+import AttachmentBtnModal from './AttachmentBtnModal';
 
 const assembleMessage = (profile, chatId) => {
   return {
@@ -67,9 +68,43 @@ const ChatBottom = () => {
     }
   };
 
+  const afterUpload = useCallback(
+    async files => {
+      setIsLoading(true);
+
+      const updates = {};
+
+      files.forEach(file => {
+        const msgData = assembleMessage(profile, chatId);
+        msgData.file = file;
+
+        const messageId = database.ref('messages').push().key;
+
+        updates[`/messages/${messageId}`] = msgData;
+      });
+
+      const lastMsgId = Object.keys(updates).pop();
+
+      updates[`/rooms/${chatId}/lastMessage`] = {
+        ...updates[lastMsgId],
+        msgId: lastMsgId,
+      };
+
+      try {
+        await database.ref().update(updates);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+        Alert.error(err.message);
+      }
+    },
+    [chatId, profile]
+  );
+
   return (
     <div>
       <InputGroup>
+        <AttachmentBtnModal afterUpload={afterUpload} />
         <Input
           placeholder="Start chatting..."
           className="wd-100"
