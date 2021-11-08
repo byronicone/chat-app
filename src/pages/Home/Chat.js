@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Loader } from 'rsuite';
 import ChatBottom from '../../components/chat-window/bottom';
@@ -12,6 +12,10 @@ import { auth } from '../../misc/firebase';
 const Chat = () => {
   const { chatId } = useParams();
   const rooms = useRooms();
+
+  useEffect(() => {
+    window.chatId = chatId;
+  }, [chatId]);
 
   if (!rooms) {
     return (

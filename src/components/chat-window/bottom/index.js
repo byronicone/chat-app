@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { useParams } from 'react-router';
 import firebase from 'firebase/app';
 import { Alert, Icon, Input, InputGroup } from 'rsuite';
 import { useProfile } from '../../../contexts/profile.context';
@@ -25,7 +24,7 @@ const ChatBottom = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { chatId } = useParams();
+  const { chatId } = window;
   const { profile } = useProfile();
 
   const onInputChange = useCallback(value => {
@@ -76,7 +75,7 @@ const ChatBottom = () => {
       const updates = {};
 
       files.forEach(file => {
-        const msgData = assembleMessage(profile, chatId);
+        const msgData = assembleMessage(profile, window.chatId);
         msgData.file = file;
 
         const messageId = database.ref('messages').push().key;
@@ -86,7 +85,7 @@ const ChatBottom = () => {
 
       const lastMsgId = Object.keys(updates).pop();
 
-      updates[`/rooms/${chatId}/lastMessage`] = {
+      updates[`/rooms/${window.chatId}/lastMessage`] = {
         ...updates[lastMsgId],
         msgId: lastMsgId,
       };
@@ -99,7 +98,7 @@ const ChatBottom = () => {
         Alert.error(err.message);
       }
     },
-    [chatId, profile]
+    [profile]
   );
 
   return (
