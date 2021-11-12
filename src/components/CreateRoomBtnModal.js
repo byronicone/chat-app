@@ -49,6 +49,9 @@ const CreateRoomBtnModal = () => {
       admins: {
         [auth.currentUser.uid]: true,
       },
+      fcmUsers: {
+        [auth.currentUser.uid]: true,
+      },
     };
 
     try {
