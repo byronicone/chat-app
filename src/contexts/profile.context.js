@@ -61,7 +61,7 @@ export const ProfileProvider = ({ children }) => {
                 .set(authObj.uid);
             }
           } catch (err) {
-            console.log('An error occurred while retrieving token. ', err);
+            throw new Error('An error occurred while retrieving token. ', err);
           }
         }
       } else {
